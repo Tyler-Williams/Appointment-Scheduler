@@ -10,7 +10,7 @@
         <v-flex xs10 offset-xs1>
           <v-card>
             <v-stepper v-model="e6" vertical>
-              <v-stepper-step step="1" v-bind:complete="e6 > 1" complete editable>
+              <v-stepper-step step="1" v-bind:complete="e6 > 1" editable>
                 Choose a day for your appointment
               </v-stepper-step>
               <v-stepper-content step="1">
@@ -18,7 +18,7 @@
                   <v-dialog persistent v-model="modal" lazy full-width>
                     <v-text-field slot="activator" label="Select Date" v-model="date" prepend-icon="event" readonly></v-text-field>
                     <v-date-picker v-model="date" :allowed-dates="setAvailableDays" scrollable actions>
-                      <template scope="{ save, cancel }">
+                      <template>
                         <v-card-actions>
                         <v-spacer></v-spacer>
                           <v-btn flat color="primary" @click.native="modal = false">Cancel</v-btn>
@@ -29,7 +29,7 @@
                   </v-dialog>
                 </v-flex>
               </v-stepper-content>
-              <v-stepper-step step="2" complete editable v-bind:complete="e6 > 2" >
+              <v-stepper-step step="2" editable v-bind:complete="e6 > 2" >
                 Choose an available time for your appointment
               </v-stepper-step>
               <v-stepper-content step="2">
@@ -50,7 +50,7 @@
                   <v-radio v-for = "slot in availablePMs" :key= "slot.id" :label="`${slot.time}`" @click.native="e6 = slot.click_state" :value="`${slot.time}`" :disabled="slot.state"></v-radio>
                 </v-radio-group>
               </v-stepper-content>
-              <v-stepper-step step="3" complete editable v-bind:complete="e6 > 3">
+              <v-stepper-step step="3" editable v-bind:complete="e6 > 3">
                 Share your contact information with us and we 'll send you a reminder
               </v-stepper-step>
               <v-stepper-content step="3">
@@ -67,7 +67,7 @@
                 </form>
                 <v-dialog v-model = "dialog" persistent max-width ="750">
                 <v-card>
-                  <div v-for="user in userArray">
+                  <div v-for="user in userArray" v-bind:key="user.id">
                     <v-spacer></v-spacer>
                     <v-flex xs12 sm6 md4>
                       <v-spacer></v-spacer>
